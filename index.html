@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Math Tutoring Payment</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Access Premium Math Tutoring</h1>
+  </header>
+  <main>
+    <h2>Payment Instructions</h2>
+    <p>
+      To gain access to our premium math tutoring, please follow these steps:
+    </p>
+    <ol>
+      <li>Deposit $50 (or equivalent in your currency) to the following account:
+        <strong>GT Bank Account Number: 2032202001590</strong>.
+      </li>
+      <li>Use the currency converter below to check the equivalent in your native currency.</li>
+      <li>Send a receipt or proof of payment to our Telegram contact: 
+        <strong>+220 5978567</strong>.
+      </li>
+    </ol>
+    <h2>Currency Converter</h2>
+    <label for="amount">Enter Amount in USD:</label>
+    <input type="number" id="amount" placeholder="50" value="50">
+    <label for="currency">Select Your Currency:</label>
+    <select id="currency">
+      <option value="EUR">Euro (EUR)</option>
+      <option value="GBP">British Pound (GBP)</option>
+      <option value="GMD">Gambian Dalasi (GMD)</option>
+      <option value="NGN">Nigerian Naira (NGN)</option>
+      <option value="ZAR">South African Rand (ZAR)</option>
+    </select>
+    <button onclick="convertCurrency()">Convert</button>
+    <div class="currency-output" id="output"></div>
+    <h2>Upload Proof of Payment</h2>
+    <label for="proof">Upload Receipt:</label>
+    <input type="file" id="proof" accept="image/*,application/pdf">
+    <button onclick="sendProof()">Send Proof</button>
+  </main>
+  <footer>
+    &copy; 2024 Premium Math Tutoring. All rights reserved.
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
