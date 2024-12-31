@@ -1,3 +1,24 @@
+// Load all currencies dynamically into the dropdown
+async function loadCurrencies() {
+  const apiUrl = `https://api.exchangerate-api.com/v4/latest/USD`;
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const currencies = Object.keys(data.rates);
+    const currencySelect = document.getElementById('currency');
+
+    currencies.forEach((currency) => {
+      const option = document.createElement('option');
+      option.value = currency;
+      option.textContent = currency;
+      currencySelect.appendChild(option);
+    });
+  } catch (error) {
+    alert('Error loading currencies. Please refresh the page.');
+  }
+}
+
+// Convert currency
 async function convertCurrency() {
   const amount = document.getElementById('amount').value;
   const currency = document.getElementById('currency').value;
@@ -16,11 +37,5 @@ async function convertCurrency() {
   }
 }
 
-function sendProof() {
-  const fileInput = document.getElementById('proof');
-  if (fileInput.files.length === 0) {
-    alert('Please upload a file before sending.');
-    return;
-  }
-  alert('Proof of payment sent successfully. Please wait for confirmation!');
-}
+// Initialize the page by loading currencies
+document.addEventListener('DOMContentLoaded', loadCurrencies);
