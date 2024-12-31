@@ -231,6 +231,9 @@ function getCurrencyName(code) {
     ZMK: 'Zambian Kwacha',
     ZWD: 'Zimbabwean Dollar'
 }
+  };
+      return currencies[code] || code;
+    }
 
 
 // Initialize the page
