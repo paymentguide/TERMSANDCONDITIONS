@@ -29,10 +29,21 @@ async function convertCurrency() {
     const converted = (amount * rate).toFixed(2);
     document.getElementById('output').textContent = 
       `Equivalent in ${currency}: ${converted}`;
+
+    // Mark the conversion step as complete
+    document.getElementById('step2').classList.add('completed');
   } catch (error) {
     document.getElementById('output').textContent = 
       'Error fetching exchange rates.';
   }
+}
+
+function openEmail() {
+  const emailLink = "mailto:yourstudybuddy303@gmail.com?subject=Proof of Payment for Math Tutoring&body=Please find my proof of payment attached.";
+  window.location.href = emailLink;
+
+  // Mark the proof submission step as complete
+  document.getElementById('step3').classList.add('completed');
 }
 
 // Populate the currency dropdown on page load
