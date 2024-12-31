@@ -230,13 +230,12 @@ function getCurrencyName(code) {
     ZAR: 'South African Rand',
     ZMK: 'Zambian Kwacha',
     ZWD: 'Zimbabwean Dollar'
-}
-  };
+
+ };
       return currencies[code] || code;
     }
 
-
-// Initialize the page
+  // Initialize the page
 document.addEventListener('DOMContentLoaded', () => {
   populateCurrencyList();
 });
