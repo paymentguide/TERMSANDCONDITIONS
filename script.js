@@ -6,6 +6,7 @@ async function populateCurrencyList() {
     const currencies = Object.keys(data.rates);
     const currencySelect = document.getElementById('currency');
 
+    // Populate dropdown with currency options
     currencies.forEach((currency) => {
       const option = document.createElement('option');
       option.value = currency;
@@ -18,7 +19,7 @@ async function populateCurrencyList() {
 }
 
 async function convertCurrency() {
-  const amount = 99.99; // Fixed amount
+  const amount = 99.99; // Fixed amount in USD
   const currency = document.getElementById('currency').value;
 
   const apiUrl = `https://api.exchangerate-api.com/v4/latest/USD`;
@@ -26,7 +27,9 @@ async function convertCurrency() {
     const response = await fetch(apiUrl);
     const data = await response.json();
     const rate = data.rates[currency];
-    const converted = (amount * rate).toFixed(2);
+    const converted = Math.ceil(amount * rate); // Round up to nearest whole number
+
+    // Display the rounded converted amount
     document.getElementById('output').textContent = 
       `Equivalent in ${currency}: ${converted}`;
 
@@ -39,7 +42,8 @@ async function convertCurrency() {
 }
 
 function openEmail() {
-  const emailLink = "mailto:yourstudybuddy303@gmail.com?subject=Proof of Payment for Math Tutoring&body=Please find my proof of payment attached.";
+  const emailLink = 
+    "mailto:yourstudybuddy303@gmail.com?subject=Proof of Payment for Math Tutoring&body=Please find my proof of payment attached.";
   window.location.href = emailLink;
 
   // Mark the proof submission step as complete
