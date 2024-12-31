@@ -1,67 +1,5 @@
-async function populateCurrencyList() {
-  const apiUrl = 'https://api.exchangerate-api.com/v4/latest/USD';
-  try {
-    const response = await fetch(apiUrl);
-    if (!response.ok) throw new Error('Network response was not ok');
-    
-    const data = await response.json();
-    const currencies = Object.keys(data.rates).sort();
-    const currencySelect = document.getElementById('currency');
-    
-    // Add placeholder option
-    const placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = 'Select currency';
-    placeholder.disabled = true;
-    placeholder.selected = true;
-    currencySelect.appendChild(placeholder);
-    
-    // Add currency options
-    currencies.forEach((currency) => {
-      const option = document.createElement('option');
-      option.value = currency;
-      option.textContent = `${currency} - ${getCurrencyName(currency)}`;
-      currencySelect.appendChild(option);
-    });
-  } catch (error) {
-    console.error('Error fetching currency list:', error);
-    document.getElementById('currency').innerHTML = 
-      '<option value="">Error loading currencies</option>';
-  }
-}
-
-async function convertCurrency() {
-  const amount = 99.99;
-  const currency = document.getElementById('currency').value;
-  const output = document.getElementById('output');
-  
-  if (!currency) {
-    output.textContent = 'Please select a currency';
-    return;
-  }
-
-  output.textContent = 'Converting...';
-  
-  try {
-    const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
-    if (!response.ok) throw new Error('Network response was not ok');
-    
-    const data = await response.json();
-    const rate = data.rates[currency];
-    const converted = (amount * rate).toFixed(2);
-    const formatter = new Intl.NumberFormat(undefined, {
-      style: 'currency',
-      currency: currency
-    });
-    
-    output.textContent = `${formatter.format(converted)} ${currency}`;
-  } catch (error) {
-    output.textContent = 'Error fetching exchange rates. Please try again later.';
-  }
-}
-
-function getCurrencyName(code) {
-  const currencies = {
+// Comprehensive currency list with names
+const currencyNames = {
     USD: 'United States Dollar',
     EUR: 'Euro',
     GBP: 'British Pound Sterling',
@@ -232,10 +170,84 @@ function getCurrencyName(code) {
     ZWD: 'Zimbabwean Dollar'
 
  };
-      return currencies[code] || code;
-    }
+async function populateCurrencyList() {
+  const apiUrl = 'https://api.exchangerate-api.com/v4/latest/USD';
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    const data = await response.json();
+    const currencies = Object.keys(data.rates).sort();
+    const currencySelect = document.getElementById('currency');
+    currencySelect.innerHTML = ''; // Clear existing options
+    
+    // Add placeholder option
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Select currency';
+    placeholder.disabled = true;
+    placeholder.selected = true;
+    currencySelect.appendChild(placeholder);
+    
+    // Add currency options with names
+    currencies.forEach((currency) => {
+      const option = document.createElement('option');
+      option.value = currency;
+      // Get the currency name from our list, fallback to just the code if not found
+      const currencyName = currencyNames[currency] || currency;
+      option.textContent = `${currency} - ${currencyName}`;
+      currencySelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error fetching currency list:', error);
+    document.getElementById('currency').innerHTML = 
+      '<option value="">Error loading currencies</option>';
+  }
+}
 
-  // Initialize the page
+async function convertCurrency() {
+  const amount = 99.99;
+  const currency = document.getElementById('currency').value;
+  const output = document.getElementById('output');
+  
+  if (!currency) {
+    output.textContent = 'Please select a currency';
+    return;
+  }
+
+  output.textContent = 'Converting...';
+  
+  try {
+    const response = await fetch(`https://api.exchangerate-api.com/v4/latest/USD`);
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    const data = await response.json();
+    const rate = data.rates[currency];
+    const converted = (amount * rate).toFixed(2);
+    
+    // Use Intl.NumberFormat for proper currency formatting
+    const formatter = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+    
+    const currencyName = currencyNames[currency] || currency;
+    output.textContent = `${formatter.format(converted)} (${currencyName})`;
+  } catch (error) {
+    console.error('Error converting currency:', error);
+    output.textContent = 'Error fetching exchange rates. Please try again later.';
+  }
+}
+
+// Helper function to get currency name
+function getCurrencyName(code) {
+  return currencyNames[code] || code;
+}
+
+// Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   populateCurrencyList();
 });
+    
