@@ -15,40 +15,58 @@
       <a href="#proof">Proof Submission</a>
     </nav>
   </header>
+  
   <main>
+    <!-- Instructions Section -->
     <section id="instructions">
       <h2>Payment Instructions</h2>
-      <p>
-        Follow the steps below to gain access to our premium math tutoring platform:
-      </p>
+      <p>Follow the steps below to gain access to our premium math tutoring platform:</p>
+      
       <ol>
         <li>
           Deposit <strong>$99.99</strong> (or equivalent in your currency) to the following account: 
           <strong>GT Bank Account Number: 2032202001590</strong>.
         </li>
+        <br>
         <li>Use the currency converter below to check the equivalent in your native currency.</li>
+        <br>
         <li>
           Email a receipt or proof of payment to: 
-          <strong><a href="mailto:yourstudybuddy303@gmail.com?subject=Proof of Payment for Math Tutoring">yourstudybuddy303@gmail.com</a></strong>.
+          <strong>
+            <a href="mailto:yourstudybuddy303@gmail.com?subject=Proof of Payment for Math Tutoring">yourstudybuddy303@gmail.com</a>
+          </strong>.
         </li>
       </ol>
+      
       <p class="alert">
         <strong>Important:</strong> If the correct amount isn't sent, you will not receive access to the site. Once verified, you will receive the access link within 24 hours.
       </p>
     </section>
+    
+    <br>
+    <hr>
+    <br>
 
+    <!-- Currency Converter Section -->
     <section id="converter">
       <h2>Currency Converter</h2>
       <div class="converter-container">
         <label for="amount">Amount in USD:</label>
         <input type="number" id="amount" value="99.99" disabled>
+        <br><br>
         <label for="currency">Select Your Currency:</label>
         <select id="currency"></select>
+        <br><br>
         <button onclick="convertCurrency()">Convert</button>
         <div class="currency-output" id="output"></div>
       </div>
     </section>
+    
+    <br>
+    <hr>
+    <br>
 
+    <!-- Proof Submission Section -->
     <section id="proof">
       <h2>Proof of Payment Submission</h2>
       <div class="proof-container">
@@ -57,6 +75,9 @@
         </p>
         <button onclick="openEmail()">Upload Proof of Payment</button>
       </div>
+      
+      <br>
+      
       <div class="progress-tracker">
         <h3>Payment Status</h3>
         <ul>
@@ -68,9 +89,11 @@
       </div>
     </section>
   </main>
+  
   <footer>
     <p>&copy; 2024 Premium Math Tutoring. All rights reserved.</p>
   </footer>
+  
   <script src="script.js"></script>
 </body>
 </html>
